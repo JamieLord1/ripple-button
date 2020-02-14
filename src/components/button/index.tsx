@@ -37,7 +37,7 @@ const Index: React.FC<Props> = ({ buttonType, text }) => {
 		
 		setRipple(newRipple);
 		setHasRipple(true);
-		setTimeout(() => setHasRipple(false), 400);
+		setTimeout(() => setHasRipple(false), 850);
 	};
 
 	const handleOnClick = (e: any) => {
