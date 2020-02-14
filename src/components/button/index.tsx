@@ -19,7 +19,6 @@ const Index: React.FC<Props> = ({ buttonType, text }) => {
 		y: 0,
 		size: ''
 	});
-	let rippleTimer: any = 0;
 
 	const addRipple = (event?: any) => {
 		const rippleContainer = event.currentTarget.getBoundingClientRect();
