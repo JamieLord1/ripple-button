@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import './index.css'
 
 interface RippleObject {
-	x?: any;
-	y?: any;
-	size?: any;
+	x: number;
+	y: number;
+	size: string;
 }
 
 interface Props {
@@ -14,7 +14,11 @@ interface Props {
 
 const Index: React.FC<Props> = ({ buttonType, text }) => {
 	const [hasRipple, setHasRipple] = useState<boolean>(false);
-	const [ripple, setRipple] = useState<RippleObject>({});
+	const [ripple, setRipple] = useState<RippleObject>({
+		x: 0,
+		y: 0,
+		size: ''
+	});
 	let rippleTimer: number = 0;
 
 	const addRipple = (event?: any) => {
