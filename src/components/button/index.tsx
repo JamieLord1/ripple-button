@@ -19,7 +19,7 @@ const Index: React.FC<Props> = ({ buttonType, text }) => {
 		y: 0,
 		size: ''
 	});
-	let rippleTimer: number = 0;
+	let rippleTimer: any = 0;
 
 	const addRipple = (event?: any) => {
 		const rippleContainer = event.currentTarget.getBoundingClientRect();
@@ -41,7 +41,7 @@ const Index: React.FC<Props> = ({ buttonType, text }) => {
 		}
 		setRipple(newRipple);
 		setHasRipple(true);
-		setTimeout(() => setHasRipple(false), 400);
+		rippleTimer = setTimeout(() => setHasRipple(false), 400);
 	};
 
 	return (
