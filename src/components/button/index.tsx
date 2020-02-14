@@ -13,7 +13,9 @@ interface Props {
 }
 
 const Index: React.FC<Props> = ({ buttonType, text }) => {
-	const [rippleArray, setRippleArray] = useState<Array<NewRippleArray>>([]);
+	const [hasRipple, setHasRipple] = useState(false);
+	const [ripple, setRipple] = useState(false);
+	let rippleTimer: number = 0;
 
 	const addRipple = (event?: any) => {
 		const rippleContainer = event.currentTarget.getBoundingClientRect();
@@ -23,13 +25,19 @@ const Index: React.FC<Props> = ({ buttonType, text }) => {
 			: rippleContainer.height;
 		const x = event.pageX - rippleContainer.x - size / 2;
 		const y = event.pageY - rippleContainer.y - size / 2;
-		const newRippleArray = {
+		const newRipple = {
 			x,
 			y,
 			size
 		};
-
-		setRippleArray([...rippleArray, newRippleArray]);
+		
+		if (hasRipple) {
+			clearTimeout(rippleTimer);
+			setHasRipple(false);
+		}
+		setRipple(newRipple);
+		setHasRipple(true);
+		rippleTimeout(() => setRippleArray(false), 900);
 	};
 
 	return (
@@ -37,9 +45,8 @@ const Index: React.FC<Props> = ({ buttonType, text }) => {
 			{text}
 			<div className="div-container" onMouseDown={addRipple}>
 				{
-					rippleArray.map((ripple, index) => {
-						return (
-							<span className={`${buttonType}-ripple`}
+					hasRipple ? (
+						<span className={`${buttonType}-ripple`}
 							key={"span" + index}
 							style={{
 								top: ripple.y,
@@ -47,9 +54,9 @@ const Index: React.FC<Props> = ({ buttonType, text }) => {
 								width: ripple.size,
 								height: ripple.size
 							}}
-							/>
-						);
-				})}
+						/>
+					) : null
+				}
 			</div>
 		</button>
 	)
