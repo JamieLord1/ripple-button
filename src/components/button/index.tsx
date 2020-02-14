@@ -35,19 +35,21 @@ const Index: React.FC<Props> = ({ buttonType, text }) => {
 			size
 		};
 		
-		if (hasRipple) {
-			clearTimeout(rippleTimer);
-			setHasRipple(false);
-		}
 		setRipple(newRipple);
 		setHasRipple(true);
-		rippleTimer = setTimeout(() => setHasRipple(false), 400);
+		setTimeout(() => setHasRipple(false), 400);
 	};
+
+	const handleOnClick = (e: any) => {
+		if (!hasRipple) {
+			addRipple(e)
+		}
+	}
 
 	return (
 		<button className={`${buttonType}-button`}>
 			{text}
-			<div className="div-container" onMouseDown={addRipple}>
+			<div className="div-container" onClick={handleOnClick}>
 				{
 					hasRipple ? (
 						<span className={`${buttonType}-ripple`}
