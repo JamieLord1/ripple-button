@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './index.css'
 
-interface NewRippleArray {
+interface RippleObject {
 	x?: any;
 	y?: any;
 	size?: any;
@@ -13,8 +13,8 @@ interface Props {
 }
 
 const Index: React.FC<Props> = ({ buttonType, text }) => {
-	const [hasRipple, setHasRipple] = useState(false);
-	const [ripple, setRipple] = useState(false);
+	const [hasRipple, setHasRipple] = useState<boolean>(false);
+	const [ripple, setRipple] = useState<RippleObject>({});
 	let rippleTimer: number = 0;
 
 	const addRipple = (event?: any) => {
@@ -37,7 +37,7 @@ const Index: React.FC<Props> = ({ buttonType, text }) => {
 		}
 		setRipple(newRipple);
 		setHasRipple(true);
-		rippleTimeout(() => setRippleArray(false), 900);
+		setTimeout(() => setHasRipple(false), 300);
 	};
 
 	return (
@@ -47,7 +47,6 @@ const Index: React.FC<Props> = ({ buttonType, text }) => {
 				{
 					hasRipple ? (
 						<span className={`${buttonType}-ripple`}
-							key={"span" + index}
 							style={{
 								top: ripple.y,
 								left: ripple.x,
